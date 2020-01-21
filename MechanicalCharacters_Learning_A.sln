@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.960
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MechanicalCharacters_Learning_A", "MechanicalCharacters_Learning_A\MechanicalCharacters_Learning_A.csproj", "{0315E3CB-FE3A-4D30-A572-90081AB90BBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0315E3CB-FE3A-4D30-A572-90081AB90BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0315E3CB-FE3A-4D30-A572-90081AB90BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0315E3CB-FE3A-4D30-A572-90081AB90BBB}.Debug|x64.ActiveCfg = Debug|x64
+		{0315E3CB-FE3A-4D30-A572-90081AB90BBB}.Debug|x64.Build.0 = Debug|x64
+		{0315E3CB-FE3A-4D30-A572-90081AB90BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0315E3CB-FE3A-4D30-A572-90081AB90BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0315E3CB-FE3A-4D30-A572-90081AB90BBB}.Release|x64.ActiveCfg = Release|x64
+		{0315E3CB-FE3A-4D30-A572-90081AB90BBB}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7875E360-4911-4C05-AF08-71996290E785}
+	EndGlobalSection
+EndGlobal
