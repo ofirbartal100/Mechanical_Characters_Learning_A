@@ -1,5 +1,4 @@
-﻿using CenterSpace.NMath.Core;
-using MathNet.Numerics.LinearAlgebra;
+﻿using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 using Newtonsoft.Json;
 using System;
@@ -76,33 +75,40 @@ namespace MechanicalCharacters_Learning_A.Utils
 
         public List<Vector<double>> Project2D()
         {
-            var mat = new DoubleMatrix(Points.Count, Points[0].Count);
+            
+            Vector<double> Xcom = new DenseVector(Points[0].Count);
+            Xcom = Points.Aggregate(Xcom, (vector, p) => vector + Vector<double>.Build.DenseOfEnumerable(p)) / Points.Count;
+
+            var centeredData = new double[Points.Count, Points[0].Count];
             for (int i = 0; i < Points.Count; i++)
             {
                 for (int j = 0; j < Points[0].Count; j++)
                 {
-                    mat.Set(i, new Slice(j, 1), Points[i][j]);
+                    centeredData[i,j]= Points[i][j] - Xcom[j];
                 }
             }
-            Vector<double> Xcom = new DenseVector(Points[0].Count);
-            Xcom = Points.Aggregate(Xcom, (vector, p) => vector + Vector<double>.Build.DenseOfEnumerable(p)) / Points.Count;
-            DoublePCA pca = new DoublePCA(mat);
-            var pcak = Matrix<double>.Build.DenseOfColumnVectors(ToVectorDouble(pca[0]), ToVectorDouble(pca[1]));
-            var projectedPoints = Points.Select(vector => FindSpanningCoefficients(Vector<double>.Build.DenseOfEnumerable(vector) - Xcom, pcak)).ToList();
-            var maxValue = Math.Abs(projectedPoints.Max(vector => vector.AbsoluteMaximum())) / 3;
-            return projectedPoints.Select(vector => vector.Divide(maxValue)).ToList();
+
+            double[] s2 = new double[2];
+            var v = new double[Points[0].Count, 2];
+            alglib.pcatruncatedsubspace(centeredData, Points.Count, Points[0].Count, 2, 0.001, 500, out s2, out v);
+
+            var projectedData = new List<Vector<double>>();
+            for (int i = 0; i < Points.Count; i++)
+            {
+                double[] projection = new double[2]{0,0};
+                for (int j = 0; j < Points[0].Count; j++)
+                {
+                    projection[0] += v[j, 0] * centeredData[i, j];
+                    projection[1] += v[j, 1] * centeredData[i, j];
+                }
+                projectedData.Add(Vector<double>.Build.DenseOfEnumerable(projection));
+            }
+
+            var maxValue = Math.Abs(projectedData.Max(vector => vector.AbsoluteMaximum())) / 3;
+            return projectedData.Select(vector => vector.Divide(maxValue)).ToList();
         }
 
-        private Vector<double> FindSpanningCoefficients(Vector<double> vector, Matrix<double> pcak)
-        {
-            var p = pcak.Solve(vector);
-            return p;
-        }
 
-        private Vector<double> ToVectorDouble(DoubleVector v)
-        {
-            return new DenseVector(v.ToArray());
-        }
     }
     public class CurvesPair
     {

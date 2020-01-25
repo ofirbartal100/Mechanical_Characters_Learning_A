@@ -174,9 +174,6 @@
     <PackageReference Include="alglib.net">
       <Version>3.15.1</Version>
     </PackageReference>
-    <PackageReference Include="CenterSpace.NMath.Standard.Windows.X64">
-      <Version>7.1.0.3</Version>
-    </PackageReference>
     <PackageReference Include="Jot">
       <Version>2.1.4</Version>
     </PackageReference>
